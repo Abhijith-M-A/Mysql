@@ -1,0 +1,89 @@
+{% extends 'bgb.html' %}
+
+{% block content %}
+{% csrf_token %}
+<style>
+.button {
+  background-color: #00004d;
+  border: none;
+  color: white;
+  
+  text-align: center;
+  text-decoration: none;
+  font-size: 16px;
+  margin: auto; 
+  cursor: pointer;
+  
+  border-radius: 5px
+}
+.button:hover {
+background-color: #002060;
+}
+.button1 {
+	padding: 12px 32px;
+	width: 750px;
+}
+.button2 {
+	font-size: 10px;
+	width: 125px;
+	padding: 10px 32px;
+	display:inline;
+	position: absolute;
+    left: 1025px;
+	
+}
+.button3 {
+	font-size: 10px;
+	width: 125px;
+	padding: 10px 32px;
+	display:inline;
+	position: relative;
+    left: 480px;
+    top: -18px;
+}
+texter {
+	text-align: center;
+}
+
+}
+</style>
+<label style="color:black; font-size:30px">Add details of the paid person</label>
+<br><br><br><br>
+{% for i in bill_payers %}
+
+	<form action = "/editor/{{ i.id }}/{{ i.temp2 }}/{{ i.temp1 }}" method = "POST">{% csrf_token %}
+	<span class = "texter">{{ i.temp2 }} &nbsp - &nbsp Rs. {{ i.temp1 }}</span>
+	<input type = "submit" data-inline="true" class = "button button2" value ="Edit" ></form>
+	<form action = "/deleter/{{ i.id }}" method = "POST">{% csrf_token %}	
+	<input type = "submit" data-inline="true" class = "button button3" value ="Delete">	
+	</form>
+	
+
+
+<br><br>
+{% endfor %}
+<br>
+<a href= {% url 'modal' %} font: "sans-serif"> + ADD THE PAYER</a><br><br>
+<br><br><br>
+
+{% if checker == 'True' %}
+	<div style ="color:red"> {{ errmsg }} </div>
+
+
+{% endif %}
+<br><br><br>
+
+
+<form action = {% url 'third' %} method = "POST">{% csrf_token %}
+<input type = "submit" class = "button button1" value = "Next">
+</form> 
+
+
+
+
+
+
+
+
+
+{% endblock %}

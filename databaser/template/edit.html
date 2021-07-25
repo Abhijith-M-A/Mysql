@@ -1,0 +1,61 @@
+{% extends 'bgb.html' %}
+
+{% block content %}
+<style>
+.button {
+  background-color: #00004d;
+  border: none;
+  color: white;
+  padding: 10px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  
+  cursor: pointer;
+  width : 125px;
+  
+  border-radius: 5px
+}
+.button:hover {
+background-color: #002060;
+}
+.button1 {
+	margin: 12px 2px;
+	position:relative; left:250px; top:65px;
+}
+.button2 {
+	position:relative; left:-200px; top:2px;
+	margin: 12px 2px;
+}
+</style>
+<br><br><br>
+{% for j in bill_nonpayers %}
+Selected name : {{ j.temp5 }} 
+
+<br><br><br>
+<form action =  "/seventh/{{ j.id }}" method = "POST">{% csrf_token %}
+	&emsp;&emsp;&emsp;&emsp;&emsp;Enter the name of the non payer: &nbsp&nbsp&nbsp<input type = "text" maxlength="10" name ="temp5" style='text-transform:capitalize'
+	value= "{{ name_nonpayer }}">
+	<t style = "font-size : 12px"> Give no space </t>
+	<br><br><br>
+{% endfor %}
+{% if checkblanksec == 'True' %}
+<div style ="color:red">{{ blankmsgsec }}</div>
+{% endif %}
+
+{% if duplicate == 'True' %}
+{% for i in bill_nonpayers_duplicate %}
+<div>{{ i.temp5 }}</div>
+{% endfor %}
+<br><br>
+<div style ="color:red">{{ war_msg }}</div>
+{% endif %}
+
+<input type ="submit" class = "button button1" value = "OK">
+</form>
+<form action = {% url 'third' %} method = "POST">{% csrf_token %}
+<input type ="submit" class = "button button2" value = "Back" >
+</form>
+
+{% endblock %}

@@ -1,0 +1,67 @@
+{% extends 'bgb.html' %}
+
+{% block content %}
+<style>
+.button {
+  background-color: #00004d;
+  border: none;
+  color: white;
+  padding: 10px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  
+  cursor: pointer;
+  width : 125px;
+  
+  border-radius: 5px;
+}
+.button:hover {
+background-color: #002060;
+}
+.button1 {
+	margin: 12px 2px;
+	position:relative; left:250px; top:65px;
+}
+.button2 {
+	position:relative; left:-200px; top:2px;
+	margin: 12px 2px;
+}
+</style>
+<br><br><br>
+{% for i in bill_payers %}
+Selected name : {{ i.temp2 }} &nbsp - &nbsp Rs. {{ i.temp1 }}
+
+<br><br><br>
+<form action = "/sixth/{{ i.id }}" method = "POST">{% csrf_token %}
+	
+	&emsp;&emsp;&emsp;&emsp;&emsp;Enter the name of payer: &nbsp&nbsp&nbsp<input type = "text" maxlength="10" name ="temp"  
+	style='text-transform:capitalize' value= "{{ name_payer }}">
+	<t style = "font-size : 12px"> Give no space </t>
+	<br><br><br>
+	Enter the paid amount: Rs.&nbsp<input type = "number" min = "1" max = "9999999999" name ="temp1" value= "{{ price_payer }}">
+	
+	<br><br><br>
+{% endfor %}
+{% if checkblank == 'True' %}
+<div style ="color:red">{{ blankmsg }}</div>
+{% endif %}
+
+{% if duplicate == 'True' %}
+{% for i in bill_payers_duplicate %}
+<div>{{ i.temp2 }} - Rs. {{ i.temp1 }}
+{% endfor %}
+<br><br>
+<div style ="color:red">{{ war_msg }}</div>
+{% endif %}
+
+<input type ="submit" class="button button1" value = "OK" style="margin-left:0px;margin-left:auto">
+</form>
+
+
+<form action = {% url 'second' %} method = "POST">{% csrf_token %}
+<input type ="submit" class = "button button2" value = "Back" >
+</form>
+
+{% endblock %}

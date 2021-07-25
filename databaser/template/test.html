@@ -1,0 +1,54 @@
+{% extends 'bgb.html' %}
+
+{% block content %}
+<style>
+.button {
+  background-color: #00004d;
+  border: none;
+  color: white;
+  padding: 10px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  
+  cursor: pointer;
+  width : 125px;
+  
+  border-radius: 5px
+}
+.button:hover {
+background-color: #002060;
+}
+.button1 {
+	margin: 12px 2px;
+	position:relative; left:350px; top:65px;
+}
+.button2 {
+	position:relative; left:-300px; top:2px;
+	margin: 12px 2px;
+}
+</style>
+<label style="color:black"><u>Total amount the paid persons get </u></label>
+<br><br>
+{% for pay in commprall %}
+
+{{ pay }}
+
+<br><br>
+{% endfor %}
+<br><br><br>
+<label style="color:black"><u> Payment that needs to be done </u></label><br><br>
+{% for payment in commpr %}
+
+{{ payment }}
+<br><br>
+{% endfor %}
+<br><br><br><br><br><br><br><br>
+<form action = {% url 'thirdback' %} method = "POST">{% csrf_token %}
+<input type ="submit" class = "button button1" value = "Back">
+</form>
+<form action = {% url 'exit' %} method = "POST">{% csrf_token %}
+<input type ="submit" class = "button button2" value = "Exit" >
+</form>
+{% endblock %}

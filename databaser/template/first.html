@@ -1,0 +1,44 @@
+{% extends 'bgb.html' %}
+
+{% block content %}
+{% csrf_token %}
+<label style= "font-size:30px">Welcome to Bill Splitter</label>
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+<style>
+.button {
+  background-color: #00004d;
+  border: none;
+  color: white;
+  
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+  
+  border-radius: 5px
+}
+.button:hover {
+background-color: #002060;
+}
+.button1 {
+	padding: 12px 32px;
+	width: 750px;
+}
+</style>
+<form action = {% url 'second' %} method = "POST">{% csrf_token %}
+<input type ="submit" class = "button button1" value ="Click here to split your bill">
+</form>
+
+
+
+
+
+
+
+
+
+
+
+{% endblock %}
